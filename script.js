@@ -5,27 +5,70 @@ const scissors = document.querySelector(".scissors");
 const userChoice = document.querySelector(".user");
 const compChoice = document.querySelector(".computer");
 const winner = document.querySelector(".winner h2");
+const userScore = document.querySelector(".userScore");
+const computerScore = document.querySelector(".computerScore");
 
-const choices = ["rock", "paper", "scissors"];
+let userWin = 0;
+let computerWin = 0;
+
+const choices = ["rock", "scissors", "paper"];
 
 function getComputerChoice() {
   const randomIdx = Math.floor(Math.random() * 3);
   return choices[randomIdx];
 }
 
-function playGame(userMove) {
-  const computerMove = getComputerChoice();
+function userInput(userChoiceStr) {
+  const computerChoicestr = getComputerChoice();
 
-  userChoice.innerHTML = `Your choice : ${userMove}`;
-  compChoice.innerHTML = `Computer choice : ${computerMove}`;
+  userChoice.innerHTML = `Your choice : ${userChoiceStr}`;
+  compChoice.innerHTML = `Computer Choice : ${computerChoicestr}`;
 
-  if (userMove === computerMove) {
-    winner.innerHTML = "It's a Tie!";
+  if (userChoiceStr === computerChoicestr) {
+    winner.innerHTML = `Its a Tie!`;
+    return;
+  }
+
+  const result = getWinner(userChoiceStr, computerChoicestr);
+
+  if (result == "user") {
+    winner.innerHTML = `User Wins`;
+    userWin++;
   } else {
-    winner.innerHTML = "Round Completed";
+    winner.innerHTML = `Computer Wins`;
+    computerWin++;
+  }
+
+  updateScore();
+}
+
+function getWinner(userChoiceStr, computerChoicestr) {
+  if (
+    userChoiceStr == "rock" &&
+    computerChoicestr == "scissors"
+  ) {
+    return "user";
+  } else if (
+    userChoiceStr == "paper" &&
+    computerChoicestr == "rock"
+  ) {
+    return "user";
+  } else if (
+    userChoiceStr == "scissors" &&
+    computerChoicestr == "paper"
+  ) {
+    return "user";
+  } else {
+    return "computer";
   }
 }
 
-rock.addEventListener("click", () => playGame("rock"));
-paper.addEventListener("click", () => playGame("paper"));
-scissors.addEventListener("click", () => playGame("scissors"));
+function updateScore() {
+  userScore.innerHTML = `Your Score : ${userWin}`;
+  computerScore.innerHTML =
+    `Computer's Score : ${computerWin}`;
+}
+
+rock.addEventListener("click", () => userInput("rock"));
+paper.addEventListener("click", () => userInput("paper"));
+scissors.addEventListener("click", () => userInput("scissors"));
