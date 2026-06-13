@@ -42,3 +42,13 @@ Rock-Paper-Scissors
 * Conditional Statements
 * Random Number Generation
 * Basic Game Logic
+
+## Game Screenshots
+
+Here is the rock selection screen:
+
+![Rock Selection Screen](Rock-1.png)
+
+And the game in action:
+
+![Gameplay](Rock-2.png)   
